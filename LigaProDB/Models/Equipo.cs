@@ -17,5 +17,8 @@ namespace LigaProDB.Models
         public int PartidosEmpatados { get; set; }
         public int PartidosPerdidos { get; set; }
         public int Puntos { get; set; }
+
+        public ICollection<Jugador> Jugadores { get; set; } = new List<Jugador>();
+
     }
 }

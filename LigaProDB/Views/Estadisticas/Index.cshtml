@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Estadísticas";
+    var goleadores = ViewBag.Goleadores as List<LigaProDB.Models.Jugador>;
+    var asistidores = ViewBag.Asistidores as List<LigaProDB.Models.Jugador>;
+    var presupuestos = ViewBag.Presupuestos as List<LigaProDB.Models.Equipo>;
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">📊 Estadísticas de la LigaPro</h1>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow rounded-4">
+                <div class="card-header bg-primary text-white text-center rounded-top-4">
+                    🥇 Top 5 Goleadores
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Equipo</th>
+                                <th>Goles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var j in goleadores)
+                            {
+                                <tr>
+                                    <td>@j.Nombre</td>
+                                    <td>@j.Equipo?.Nombre</td>
+                                    <td>@j.Goles</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow rounded-4">
+                <div class="card-header bg-success text-white text-center rounded-top-4">
+                    🎯 Top 5 Asistencias
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Equipo</th>
+                                <th>Asistencias</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var j in asistidores)
+                            {
+                                <tr>
+                                    <td>@j.Nombre</td>
+                                    <td>@j.Equipo?.Nombre</td>
+                                    <td>@j.Asistencias</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-4">
+            <div class="card shadow rounded-4">
+                <div class="card-header bg-warning text-dark text-center rounded-top-4">
+                    💰 Top 5 Equipos con mayor presupuesto
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Equipo</th>
+                                <th>Presupuesto Total ($)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var e in presupuestos)
+                            {
+                                var totalSueldo = e.Jugadores?.Sum(j => j.Sueldo) ?? 0;
+                                <tr>
+                                    <td>@e.Nombre</td>
+                                    <td>@totalSueldo.ToString("F2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

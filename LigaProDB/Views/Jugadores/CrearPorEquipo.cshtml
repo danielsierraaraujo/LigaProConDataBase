@@ -1,0 +1,75 @@
+﻿@model LigaProDB.Models.Jugador
+@{
+    ViewData["Title"] = "Agregar Jugador";
+    var posiciones = new List<string> { "Portero", "Defensa", "Centrocampista", "Delantero" };
+}
+
+<h2 class="text-center mb-4">Agregar Jugador a @ViewBag.NombreEquipo</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow p-4">
+            <form asp-action="CrearPorEquipo" method="post">
+                <input type="hidden" asp-for="EquipoId" value="@ViewBag.EquipoId" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Nombre" class="form-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Edad" class="form-label"></label>
+                    <input asp-for="Edad" class="form-control" />
+                    <span asp-validation-for="Edad" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NumeroCamiseta" class="form-label"></label>
+                    <input asp-for="NumeroCamiseta" class="form-control" />
+                    <span asp-validation-for="NumeroCamiseta" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Posicion" class="form-label"></label>
+                    <select asp-for="Posicion" class="form-select">
+                        <option value="">Seleccione una posición</option>
+                        @foreach (var pos in posiciones)
+                        {
+                            <option value="@pos">@pos</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Posicion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Goles" class="form-label"></label>
+                    <input asp-for="Goles" class="form-control" />
+                    <span asp-validation-for="Goles" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Asistencias" class="form-label"></label>
+                    <input asp-for="Asistencias" class="form-control" />
+                    <span asp-validation-for="Asistencias" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Sueldo" class="form-label"></label>
+                    <input asp-for="Sueldo" class="form-control" />
+                    <span asp-validation-for="Sueldo" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Guardar Jugador</button>
+            </form>
+
+            <a asp-action="Index" class="btn btn-secondary mt-3">← Volver a Equipos</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

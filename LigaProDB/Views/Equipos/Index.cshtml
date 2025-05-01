@@ -1,71 +1,54 @@
 ﻿@model IEnumerable<LigaProDB.Models.Equipo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tabla de Equipos";
 }
 
-<h1>Index</h1>
+<h2 class="mb-4">Tabla de Equipos</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Equipo</a>
 </p>
-<table class="table">
-    <thead>
+
+<table class="table table-striped table-bordered align-middle">
+    <thead class="table-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Logo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartidosJugados)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartidosGanados)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartidosEmpatados)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartidosPerdidos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Puntos)
-            </th>
-            <th></th>
+            <th>Logo</th>
+            <th>Nombre</th>
+            <th>Partidos Jugados</th>
+            <th>Ganados</th>
+            <th>Empatados</th>
+            <th>Perdidos</th>
+            <th>Puntos</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Logo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartidosJugados)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartidosGanados)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartidosEmpatados)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartidosPerdidos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Puntos)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Logo))
+                    {
+                        <img src="~/img/@item.Logo" alt="Logo" width="60" class="rounded border shadow-sm" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Sin logo</span>
+                    }
+                </td>
+                <td>@item.Nombre</td>
+                <td>@item.PartidosJugados</td>
+                <td>@item.PartidosGanados</td>
+                <td>@item.PartidosEmpatados</td>
+                <td>@item.PartidosPerdidos</td>
+                <td class="fw-bold">@item.Puntos</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-1">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info me-1">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

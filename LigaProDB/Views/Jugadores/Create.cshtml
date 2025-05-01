@@ -1,67 +1,69 @@
 ﻿@model LigaProDB.Models.Jugador
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Agregar Jugador";
+    var equipo = ViewBag.Equipo as LigaProDB.Models.Equipo;
+    var posiciones = ViewBag.Posiciones as SelectList;
 }
 
-<h1>Create</h1>
+<h2 class="text-center mb-4">Agregar Jugador a @equipo?.Nombre</h2>
 
-<h4>Jugador</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
+<div class="container">
+    <div class="card shadow p-4 rounded-3">
+        <form asp-action="Create" method="post" class="row g-3">
+            <input type="hidden" asp-for="EquipoId" />
+
+            <div class="col-md-6">
+                <label asp-for="Nombre" class="form-label"></label>
                 <input asp-for="Nombre" class="form-control" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Edad" class="control-label"></label>
-                <input asp-for="Edad" class="form-control" />
+
+            <div class="col-md-3">
+                <label asp-for="Edad" class="form-label"></label>
+                <input asp-for="Edad" class="form-control" type="number" min="1" />
                 <span asp-validation-for="Edad" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EquipoId" class="control-label"></label>
-                <select asp-for="EquipoId" class ="form-control" asp-items="ViewBag.EquipoId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroCamiseta" class="control-label"></label>
+
+            <div class="col-md-3">
+                <label asp-for="NumeroCamiseta" class="form-label"></label>
                 <input asp-for="NumeroCamiseta" class="form-control" />
                 <span asp-validation-for="NumeroCamiseta" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Goles" class="control-label"></label>
+
+            <div class="col-md-4">
+                <label asp-for="Goles" class="form-label"></label>
                 <input asp-for="Goles" class="form-control" />
                 <span asp-validation-for="Goles" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Asistencias" class="control-label"></label>
+
+            <div class="col-md-4">
+                <label asp-for="Asistencias" class="form-label"></label>
                 <input asp-for="Asistencias" class="form-control" />
                 <span asp-validation-for="Asistencias" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Sueldo" class="control-label"></label>
-                <input asp-for="Sueldo" class="form-control" />
+
+            <div class="col-md-4">
+                <label asp-for="Sueldo" class="form-label"></label>
+                <input asp-for="Sueldo" class="form-control" type="number" step="0.01" />
                 <span asp-validation-for="Sueldo" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Posicion" class="control-label"></label>
-                <input asp-for="Posicion" class="form-control" />
+
+            <div class="col-md-6">
+                <label asp-for="Posicion" class="form-label"></label>
+                <select asp-for="Posicion" class="form-select" asp-items="posiciones">
+                    <option value="">Seleccione una posición</option>
+                </select>
                 <span asp-validation-for="Posicion" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <div class="col-12 text-center mt-4">
+                <button type="submit" class="btn btn-success px-4">Guardar Jugador</button>
+                <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
 }

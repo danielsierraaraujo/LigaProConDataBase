@@ -1,77 +1,23 @@
-﻿@model IEnumerable<LigaProDB.Models.Jugador>
+﻿@model IEnumerable<LigaProDB.Models.Equipo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Jugadores - Equipos";
 }
 
-<h1>Index</h1>
+<h2 class="text-center mb-4">Selecciona un Equipo</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Edad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Equipo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroCamiseta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Goles)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Asistencias)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sueldo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Posicion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Equipo.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroCamiseta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Goles)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Asistencias)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sueldo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Posicion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    @foreach (var equipo in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm border-0">
+                <img src="~/img/@equipo.Logo" class="card-img-top" style="height: 150px; object-fit: contain;" />
+                <div class="card-body text-center">
+                    <h5 class="card-title">@equipo.Nombre</h5>
+                    <a asp-action="CrearPorEquipo" asp-route-equipoId="@equipo.Id" class="btn btn-success btn-sm me-1">Agregar Jugador</a>
+                    <a asp-action="ListaPorEquipo" asp-route-equipoId="@equipo.Id" class="btn btn-primary btn-sm">Ver Jugadores</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

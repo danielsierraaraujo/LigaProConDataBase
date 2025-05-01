@@ -1,0 +1,42 @@
+﻿@model IEnumerable<LigaProDB.Models.Jugador>
+@{
+    ViewData["Title"] = "Jugadores del Equipo";
+}
+
+<h2 class="text-center mb-4">Jugadores del Equipo</h2>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>N° Camiseta</th>
+            <th>Posición</th>
+            <th>Goles</th>
+            <th>Asistencias</th>
+            <th>Sueldo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jugador in Model)
+        {
+            <tr>
+                <td>@jugador.Nombre</td>
+                <td>@jugador.Edad</td>
+                <td>@jugador.NumeroCamiseta</td>
+                <td>@jugador.Posicion</td>
+                <td>@jugador.Goles</td>
+                <td>@jugador.Asistencias</td>
+                <td>$@jugador.Sueldo.ToString("N2")</td>
+                <td>
+                    <form asp-action="Eliminar" asp-route-id="@jugador.Id" method="post" onsubmit="return confirm('¿Estás seguro de eliminar a este jugador?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">← Volver a Equipos</a>
